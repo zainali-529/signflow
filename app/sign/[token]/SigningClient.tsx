@@ -472,7 +472,7 @@ export default function SigningClient({ document: doc, token }: { document: DocD
             <button onClick={() => { if (sigData) setStep('place') }} disabled={!sigData} className="btn-gold" style={{ flex: 1 }}>Place Signature →</button>
           </div>
         </div>
-      )}
+      )} 
 
       {/* ── STEP: Place ─────────────────────────────────────────────────────── */}
       {step === 'place' && (
