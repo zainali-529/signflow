@@ -66,7 +66,19 @@ export async function GET(
       return NextResponse.json({ error: 'Signature not found' }, { status: 404 })
     }
 
-    return NextResponse.json({ signature })
+    // Build public URLs (if paths exist)
+    const result: any = { ...signature }
+    if (signature.signature_path) {
+      result.signature_url = supabaseAdmin.storage.from('signatures').getPublicUrl(signature.signature_path).data.publicUrl
+    }
+    if (signature.photo_path) {
+      result.photo_url = supabaseAdmin.storage.from('signatures').getPublicUrl(signature.photo_path).data.publicUrl
+    }
+    if (signature.signed_doc_path) {
+      result.signed_doc_url = supabaseAdmin.storage.from('signed-docs').getPublicUrl(signature.signed_doc_path).data.publicUrl
+    }
+
+    return NextResponse.json({ signature: result })
   } catch (error) {
     console.error('Fetch signature error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

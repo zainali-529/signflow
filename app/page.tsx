@@ -26,6 +26,8 @@ interface SignatureDetail {
   device_info: Record<string, string>
   location_data?: Record<string, number>
   signed_doc_url?: string
+  photo_url?: string
+  signature_url?: string
 }
 
 export default function Dashboard() {
@@ -353,6 +355,25 @@ export default function Dashboard() {
             <a href={selectedDoc.signed_doc_url} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 16, textDecoration: 'none' }}>
               ↓ Download Signed PDF
             </a>
+          )}
+          {/* Show selfie if available */}
+          {selectedDoc.photo_url && (
+            <div style={{ marginTop: 12 }}>
+              <p style={{ fontSize: 11, color: '#4A4A60', marginBottom: 6 }}>Identity Photo:</p>
+              <a href={selectedDoc.photo_url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', borderRadius: 8, overflow: 'hidden', border: '1px solid #1E1E2E' }}>
+                <img src={selectedDoc.photo_url} alt="selfie" style={{ display: 'block', width: 160, height: 120, objectFit: 'cover' }} />
+              </a>
+            </div>
+          )}
+
+          {/* Show signature image preview if available */}
+          {selectedDoc.signature_url && (
+            <div style={{ marginTop: 12 }}>
+              <p style={{ fontSize: 11, color: '#4A4A60', marginBottom: 6 }}>Captured Signature:</p>
+              <div style={{ display: 'inline-block', background: '#ffffff', padding: 6, borderRadius: 8 }}>
+                <img src={selectedDoc.signature_url} alt="signature" style={{ display: 'block', height: 50, objectFit: 'contain' }} />
+              </div>
+            </div>
           )}
         </Modal>
       )}
