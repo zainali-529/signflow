@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-instrument: 'Instrument Sans', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #080810;
+  color: #EDE8DF;
+  font-family: var(--font-instrument);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0F0F1A;
+}
+::-webkit-scrollbar-thumb {
+  background: #252535;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C9933A;
+}
+
+/* Gold gradient text utility */
+.gold-text {
+  background: linear-gradient(135deg, #C9933A 0%, #E8B84B 50%, #C9933A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Noise texture overlay */
+.noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.04;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 30%, rgba(201,147,58,0.15) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Fade in */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.fade-up-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.fade-up-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.fade-up-delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+/* Pulse ring */
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(201, 147, 58, 0.4); }
+  70% { box-shadow: 0 0 0 12px rgba(201, 147, 58, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(201, 147, 58, 0); }
+}
+
+.pulse-gold {
+  animation: pulseRing 2s ease infinite;
+}
+
+/* Signature canvas styles */
+.sig-canvas {
+  touch-action: none;
+  cursor: crosshair;
+}
+
+/* Status badge */
+.badge-pending {
+  background: rgba(201, 147, 58, 0.12);
+  color: #E8B84B;
+  border: 1px solid rgba(201, 147, 58, 0.3);
+}
+
+.badge-signed {
+  background: rgba(61, 184, 122, 0.12);
+  color: #3DB87A;
+  border: 1px solid rgba(61, 184, 122, 0.3);
+}
+
+/* Card hover effect */
+.doc-card {
+  transition: all 0.25s ease;
+}
+.doc-card:hover {
+  border-color: rgba(201, 147, 58, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,147,58,0.1);
+}
+
+/* Input focus */
+.sf-input {
+  background: #0F0F1A;
+  border: 1px solid #252535;
+  color: #EDE8DF;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: var(--font-instrument);
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  outline: none;
+}
+
+.sf-input:focus {
+  border-color: #C9933A;
+  box-shadow: 0 0 0 3px rgba(201, 147, 58, 0.12);
+}
+
+.sf-input::placeholder {
+  color: #4A4A60;
+}
+
+/* Button styles */
+.btn-gold {
+  background: linear-gradient(135deg, #C9933A, #E8B84B);
+  color: #080810;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 11px 24px;
+  font-size: 14px;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-instrument);
+  letter-spacing: 0.01em;
+}
+
+.btn-gold:hover {
+  box-shadow: 0 0 20px rgba(232, 184, 75, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+.btn-gold:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #252535;
+  color: #9A94A8;
+  border-radius: 8px;
+  padding: 11px 24px;
+  font-size: 14px;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-family: var(--font-instrument);
+}
+
+.btn-ghost:hover {
+  border-color: #4A4A60;
+  color: #EDE8DF;
+}
